@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trainer Timer</title>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <main>
+    <!-- WELCOME SCREEN -->
+    <div id="welcomeScreen" class="screen">
+      <img src="/logo/demo_logo.png"
+           alt="NetCom Learning Logo"
+           class="logo" />
+
+      <!-- Big pill badge -->
+      <div class="status-badge">👋 Welcome</div>
+
+      <p>
+        Take control of your breaks with Virtual Break.<br />
+        Choose from one of our preset break types or customize the timer to fit your needs.<br />
+        Make the most of your break time. Get started!
+        <br /><br />
+      </p>
+
+      <div class="icon-bar">
+        <i class="fa-solid fa-calendar"
+           tabindex="0"
+           title="Class Starts Timer"
+           data-preset="class"></i>
+
+        <i class="fa-solid fa-mug-saucer"
+           tabindex="0"
+           title="Coffee Break Timer"
+           data-preset="coffee"></i>
+
+        <i class="fa-solid fa-burger"
+           tabindex="0"
+           title="Lunch Break Timer"
+           data-preset="lunch"></i>
+
+        <i class="fa-solid fa-flask"
+           tabindex="0"
+           title="Lab Session Timer"
+           data-preset="lab"></i>
+
+        <i class="fa-solid fa-gear"
+           tabindex="0"
+           title="Custom Timer Settings"
+           data-gear="toggle"></i>
+      </div>
+    </div>
+
+    <!-- TIMER SCREEN -->
+    <div id="timerScreen" class="screen" aria-live="polite">
+      <img src="/logo/demo_logo.png"
+           alt="NetCom Learning Logo"
+           class="logo" />
+
+      <div id="infoPanel">
+        <div id="statusBadge" class="status-badge"></div>
+        <div id="sessionTitle"></div>
+        <div id="sessionTime"></div>
+
+        <!-- Timer display is a live region for accessibility -->
+        <div id="timerDisplay" role="status" aria-live="polite">00:00</div>
+
+        <div id="nextUp"></div>
+
+        <div id="timerIcons" class="icon-bar">
+          <i class="fa-solid fa-calendar"
+             tabindex="0"
+             title="Class Starts Timer"
+             data-preset="class"></i>
+
+          <i class="fa-solid fa-mug-saucer"
+             tabindex="0"
+             title="Coffee Break Timer"
+             data-preset="coffee"></i>
+
+          <i class="fa-solid fa-burger"
+             tabindex="0"
+             title="Lunch Break Timer"
+             data-preset="lunch"></i>
+
+          <i class="fa-solid fa-flask"
+             tabindex="0"
+             title="Lab Session Timer"
+             data-preset="lab"></i>
+
+          <i class="fa-solid fa-gear"
+             tabindex="0"
+             title="Custom Timer Settings"
+             data-gear="toggle"></i>
+        </div>
+      </div>
+
+      <audio id="alarmSound"
+             src="/sound/classic_alarm_clock.mp3"
+             preload="auto"></audio>
+    </div>
+
+    <!-- SHARED CUSTOM FORM (used by both screens) -->
+    <div id="customForm">
+      <label for="templateSelect">Templates</label>
+      <select id="templateSelect" class="templateSelect">
+        <option value="">Select a template</option>
+        <option value="custom">Custom settings</option>
+        <option value="starting">Starting soon</option>
+        <option value="coffee">Coffee Break</option>
+        <option value="lunch">Lunch Break</option>
+        <option value="lab">Lab Session</option>
+      </select>
+
+      <label>Set remaining time (hh:mm):</label>
+      <div class="time-selects">
+        <select class="hours"></select>
+        <select class="minutes"></select>
+      </div>
+
+      <label>Title to be shown:</label>
+      <textarea class="customTitle"
+                placeholder="(Optional) Use simple text or HTML tags to format your Welcome message"></textarea>
+
+      <label>Description or Agenda under the Timer:</label>
+      <textarea class="customDescription"
+                placeholder="(Optional) Use simple text or HTML tags to format your Agenda"></textarea>
+
+      <label>Coming up next (shown under timer):</label>
+      <textarea class="nextUp"
+                placeholder="(Optional) e.g., 'Module 3 – Power BI Lab'"></textarea>
+
+      <button id="saveBtn" class="saveBtn" type="button">Save</button>
+    </div>
+  </main>
+
+  <!-- Small version tag -->
+  <footer class="version-tag">Virtual Break v2.0</footer>
+
+  <script src="/static/timer.min.js" defer></script>
+</body>
+</html>
