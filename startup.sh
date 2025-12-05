@@ -1,1 +1,5 @@
-gunicorn --bind=0.0.0.0 --timeout 600 app:app
+#!/bin/bash
+
+PORT=${PORT:-8000}
+
+gunicorn app:app --bind=0.0.0.0:$PORT --workers=2
