@@ -3,26 +3,35 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
+# Serve static files (CSS/JS) from /static
 app = Flask(__name__, static_folder='static', static_url_path='/static')
+
 
 @app.route("/")
 def index():
+    # index.html lives in the project root
     return send_from_directory(BASE_DIR, "index.html")
+
 
 @app.route("/logo/<path:filename>")
 def serve_logo(filename):
     return send_from_directory(os.path.join(BASE_DIR, "logo"), filename)
 
+
 @app.route("/sound/<path:filename>")
 def serve_sound(filename):
+    # Explicit mimetype for mp3
     return send_from_directory(
         os.path.join(BASE_DIR, "sound"),
         filename,
-        mimetype="audio/mpeg",)
+        mimetype="audio/mpeg",
+    )
+
 
 @app.route("/images/<path:filename>")
 def serve_image(filename):
     return send_from_directory(os.path.join(BASE_DIR, "images"), filename)
+
 
 @app.route("/images-list")
 def list_images():
@@ -31,6 +40,7 @@ def list_images():
     allowed_exts = {".jpg", ".jpeg", ".png", ".gif", ".webp"}
 
     if not os.path.isdir(image_dir):
+        # Fail gracefully if folder is missing
         return jsonify([])
 
     files = [
@@ -40,5 +50,7 @@ def list_images():
     ]
     return jsonify(files)
 
+
 if __name__ == "__main__":
+    # host=0.0.0.0 makes it reachable from other devices on your LAN
     app.run(host="0.0.0.0", port=5000, debug=True)
